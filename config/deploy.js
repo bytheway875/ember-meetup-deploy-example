@@ -1,7 +1,8 @@
 var VALID_DEPLOY_TARGETS = [ //update these to match what you call your deployment targets
   'dev',
-  'qa',
-  'prod'
+  'alpha',
+  'staging',
+  'production'
 ];
 
 module.exports = function(deployTarget) {
@@ -25,20 +26,14 @@ module.exports = function(deployTarget) {
     ENV.plugins = ['build', 'redis']; // only care about deploying index.html into redis in dev
   }
 
-  if (deployTarget === 'qa' || deployTarget === 'prod') {
+  if (!deployTarget === 'dev') {
     ENV.build.environment = 'production';
     ENV.s3.accessKeyId = process.env.AWS_KEY;
     ENV.s3.secretAccessKey = process.env.AWS_SECRET;
-    ENV.s3.bucket = /* YOUR S3 BUCKET NAME */;
-    ENV.s3.region = /* YOUR S3 REGION */;
-  }
-
-  if (deployTarget === 'qa') {
-    ENV.redis.url = process.env.QA_REDIS_URL;
-  }
-
-  if (deployTarget === 'prod') {
-    ENV.redis.url = process.env.PROD_REDIS_URL;
+    ENV.s3.bucket = process.env.AWS_BUCKET;
+    ENV.s3.region = process.env.AWS_REGION;
+    
+    ENV.redis.url = process.env.REDIS_URL;
   }
 
   return ENV;
