@@ -1,6 +1,7 @@
 /* jshint node: true */
 
 module.exports = function(environment) {
+  var deployTarget = process.env.DEPLOY_TARGET;
   var ENV = {
     modulePrefix: 'ember-meetup',
     environment: environment,
@@ -18,6 +19,17 @@ module.exports = function(environment) {
       // when it is created
     }
   };
+
+  if(deployTarget == 'alpha') {
+    ENV.api.host = 'https://alpha.piratesbooty.com';
+  }
+  if(deployTarget === 'staging') {
+    ENV.api.host = 'https://qa.piratesbooty.com';
+  }
+
+  if(deployTarget === 'production') {
+    ENV.api.host = 'https://app.piratesbooty.com';
+  }
 
   if (environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;

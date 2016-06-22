@@ -1,5 +1,5 @@
 var VALID_DEPLOY_TARGETS = [ //update these to match what you call your deployment targets
-  'dev',
+  'development',
   'alpha',
   'staging',
   'production'
@@ -24,14 +24,15 @@ module.exports = function(deployTarget) {
     throw new Error('Invalid deployTarget ' + deployTarget);
   }
 
-  if (deployTarget === 'dev') {
+  if (deployTarget === 'development') {
     ENV.build.environment = 'development';
     ENV.redis.url = process.env.REDIS_URL || 'redis://0.0.0.0:6379/';
     ENV.plugins = ['build', 'redis']; // only care about deploying index.html into redis in dev
   }
 
-  if (!deployTarget === 'dev') {
+  if (!deployTarget === 'development') {
     ENV.build.environment = 'production';
+
     ENV.redis.url = process.env.REDIS_URL;
   }
 
