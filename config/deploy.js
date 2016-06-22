@@ -13,7 +13,11 @@ module.exports = function(deployTarget) {
       keyPrefix: 'ember-meetup:index'
     },
     s3: {
-      prefix: 'ember-meetup'
+      prefix: 'ember-meetup',
+      accessKeyId: process.env.AWS_KEY,
+      secretAccessKey: process.env.AWS_SECRET,
+      bucket: process.env.AWS_BUCKET,
+      region: process.env.AWS_REGION
     }
   };
   if (VALID_DEPLOY_TARGETS.indexOf(deployTarget) === -1) {
@@ -28,11 +32,6 @@ module.exports = function(deployTarget) {
 
   if (!deployTarget === 'dev') {
     ENV.build.environment = 'production';
-    ENV.s3.accessKeyId = process.env.AWS_KEY;
-    ENV.s3.secretAccessKey = process.env.AWS_SECRET;
-    ENV.s3.bucket = process.env.AWS_BUCKET;
-    ENV.s3.region = process.env.AWS_REGION;
-    
     ENV.redis.url = process.env.REDIS_URL;
   }
 
