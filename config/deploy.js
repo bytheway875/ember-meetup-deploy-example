@@ -18,7 +18,14 @@ module.exports = function(deployTarget) {
       secretAccessKey: process.env.AWS_SECRET,
       bucket: process.env.AWS_BUCKET,
       region: process.env.AWS_REGION
+    },
+    's3-index': {
+      accessKeyId: process.env.AWS_KEY,
+      secretAccessKey: process.env.AWS_SECRET,
+      bucket: process.env.AWS_BUCKET,
+      region: process.env.AWS_REGION
     }
+
   };
   if (VALID_DEPLOY_TARGETS.indexOf(deployTarget) === -1) {
     throw new Error('Invalid deployTarget ' + deployTarget);
@@ -32,7 +39,7 @@ module.exports = function(deployTarget) {
 
 
     ENV.redis.url = process.env.REDIS_URL || 'redis://0.0.0.0:6379/';
-    
+
     // Since we are deploying in development after build, the build plugin isnt necessary.
     ENV.plugins = ['redis']; // only care about deploying index.html into redis in dev
   }
