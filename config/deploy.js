@@ -26,8 +26,15 @@ module.exports = function(deployTarget) {
 
   if (deployTarget === 'development') {
     ENV.build.environment = 'development';
+
+    // The revision key is always __development__ now!!
+    ENV.redis.revisionKey: '__development__',
+
+
     ENV.redis.url = process.env.REDIS_URL || 'redis://0.0.0.0:6379/';
-    ENV.plugins = ['build', 'redis']; // only care about deploying index.html into redis in dev
+    
+    // Since we are deploying in development after build, the build plugin isnt necessary.
+    ENV.plugins = ['redis']; // only care about deploying index.html into redis in dev
   }
 
   if (!deployTarget === 'development') {

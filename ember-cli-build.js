@@ -39,7 +39,13 @@ module.exports = function(defaults) {
     },
     wrapInEval: !isProductionLikeBuild,
     tests: !isProductionLikeBuild,
-    hinting: !isProductionLikeBuild
+    hinting: !isProductionLikeBuild,
+
+    emberCLIDeploy: {
+      runOnPostBuild: !isProductionLikeBuild ? 'development' : false, // returns the deployTarget
+      configFile: 'config/deploy.js', // optionally specify a different config file
+      shouldActivate: true, // optionally call the activate hook on deploy
+    }
   });
 
   return app.toTree();
