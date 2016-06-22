@@ -10,7 +10,10 @@
   "scripts": {
     "build": "ember build",
     "start": "ember server",
-    "test": "ember test"
+    "test": "ember test",
+    "deploy-alpha": "ember deploy alpha --activate",
+    "deploy-staging": "ember deploy staging --activate",
+    "deploy-production": "ember deploy production --activate"
   },
   "repository": "",
   "engines": {
